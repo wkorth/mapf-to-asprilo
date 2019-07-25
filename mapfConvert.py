@@ -3,9 +3,9 @@ import sys
 
 # TODO: Maybe different verbosity grades?
 
-terms = {".": "node", "T": "tree", "W": "water"}
+terms = {".": ("node",), "T": ("tree", "node"), "W": ("water", "node")}
 
-termcounter = dict((t, 0) for t in terms.keys())
+termcounter = dict((term, 0) for tuple in terms.values() for term in tuple)
 
 
 # TODO: Put amount of atoms in header without significant performance impact
@@ -18,6 +18,17 @@ def generateHeader(mapName, mapType, mapHeight, mapWidth):
         f"% Width: {mapWidth}\n\n"
         + ('%' * 50) + "\n\n"
     )
+
+
+def aspriloStatements(char, x, y):
+    statement = ""
+    for t in terms[char]:
+        termcounter[t] += 1
+        statement += (
+            f"init(object({t},{termcounter[t]}),"
+            f"value(at,({x},{y}))).\n"
+        )
+    return statement
 
 
 def mapfConvert(sourceFile, targetFile):
@@ -42,10 +53,7 @@ def mapfConvert(sourceFile, targetFile):
                 for c in source.readline():
                     column += 1
                     if c in terms.keys():
-                        termcounter[c] += 1
-                        target.write(
-                            f"init(object({terms[c]},{termcounter[c]}),"
-                            f"value(at,({row},{column}))).\n")
+                        target.write(aspriloStatements(c, column, row))
 
 
 def convertFile(sourceFile, targetDir):
@@ -60,8 +68,8 @@ def convertFile(sourceFile, targetDir):
 def convertDir(sourceDir, targetDir):
     if not os.path.exists(targetDir):
         os.mkdir(targetDir)
-    for mapfFile in (file.name for file in os.scandir(sourceDir)
-                     if file.name.endswith(".map")):
+    for mapfFile in [file.name for file in os.scandir(sourceDir)
+                     if file.name.endswith(".map")]:
 
         print(f"Converting {mapfFile}...")
         mapfConvert(f"{sourceDir}/{mapfFile}",
