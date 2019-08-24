@@ -1,52 +1,83 @@
-# Sollte über Stdin und Stdout funktionieren.
-# Signatur:
-# <name> [--input <path --output <path> --compress --verbose --help --sort]
-
-import io
-
-
-#terms = {".": ("node",), "T": ("tree", "node"), "W": ("water", "node")}
+"""
+A module containing functions and classes to convert a mapf instance
+from movingai's .map format file to clingo's .lp format.
+"""
 
 
 class TermConverter:
-    """Converts specific characters to clingo literals."""
+    """
+    Converts specific characters to clingo literals.
+    Tracks amount of statements translated and may return
+    all statements in a nested generator.
+    """
 
     def __init__(self, term_dict, template):
+        """
+        Initializes a TermConverter with the given attributes.
+        """
+
         self.terms = term_dict
         self.template = template
         self.termvalues = {term: [] for tup in self.terms.values()
                            for term in tup}
 
     def reset_values(self):
+        """
+        Resets the tracked usages of terms to zero.
+        """
+
         for k in self.termvalues:
             self.termvalues[k].clear()
 
     def add_term(self, char, x, y):
+        """
+        Adds all terms corresponding to the character to termvalues,
+        as well as their coordinates.
+        """
+
         if char in self.terms:
             for term in self.terms[char]:
                 self.termvalues[term].append((x, y))
 
+    # TODO: def compress(self):
+
     def term_counts(self):
+        """
+        Returns a tuple list containing all terms and their amount of uses.
+        """
+
         return [(key, len(self.termvalues[key])) for key in self.termvalues]
 
     def statements(self):
         """
         Returns a list of generators, each corresponding to one term.
         """
-        # This works as a generator for generators, but behaves weirdly as a list of generators.
+
+        # This works as a generator for generators,
+        # but behaves weirdly as a list of generators.
         # Why?
         return ((self.template.format(term, item[0], item[1][0], item[1][1])
                  for item in enumerate(sorted(self.termvalues[term]), 1))
                 for term in self.termvalues)
 
 
-def get_map_params(lines):
-    return [tuple(line[:-1].rsplit(" ", 1)) for line in lines]
+def read_map_params(map_file):
+    """
+    Reads the header of a .map file (until the "map" line) and returns the
+    map parameters as tuples in a list.
+    """
+
+    params = []
+    for line in map_file:
+        if line.strip() == "map":
+            break
+        params.append(tuple(line[:-1].rsplit(" ", 1)))
+    return params
 
 
 def generate_header(*args):
     """
-    Takes an arbitrary amount of (String, int) tuple lists
+    Takes an arbitrary amount of tuple lists
     and generates a header for a logic file.
     """
 
@@ -61,17 +92,18 @@ def generate_header(*args):
 def convert_file(source, target, term_dict, template, *, add_header=False):
     """
     Takes a file-like object and converts characters in the provided dictionary
-    to clingo literals, one line at a time. Writes to specified target file.
+    to clingo literals following a template, one line at a time.
+    Writes to specified target file.
+
+    Arguments:
+    source - file-like object to read from
+    target - file like object to write to
+    term_dict - dictionary containing characters and their translations
+    template - String showing the scheme of translated statements
+    add_header - whether to prepend a header to the output
     """
-    # Abort if source file is empty
-    if not source:
-        return
 
-    header_lines = 5    # TODO: write function to detect header
-    orig_header = get_map_params([source.readline()
-                                  for x in range(header_lines-2)])
-    source.readline()
-
+    orig_header = read_map_params(source)
     converter = TermConverter(term_dict, template)
 
     y_coord = 0
