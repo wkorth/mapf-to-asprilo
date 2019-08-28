@@ -11,8 +11,11 @@ import mapfconvert
 
 if __name__ == "__main__":
 
-    term_dict = {".": ("node",), "T": ("tree", "node"), "W": ("water", "node")}
+    # dictionary containing characters as keys and their translations as values
+    term_dict = {".": ("node",), "G": ("node",), "T": ("tree", "node"),
+                 "S": ("swamp", "node"), "W": ("water", "node")}
 
+    # empty template for translated statements
     statement_template = "init(object({},{}),value(at,({},{})).\n"
 
 

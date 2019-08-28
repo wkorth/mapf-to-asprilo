@@ -1,7 +1,9 @@
 # asprilo-mapfConverter
 
-Provides a Python module for converting movingai's .map files to clingo compatible statements
+Provides a Python module for converting [movingai's .map files](https://www.movingai.com/benchmarks/index.html "www.movingai.com/benchmarks") to clingo compatible statements
 as well as a small application to use it from the shell.
+
+**Note that the upper left corner of the map will have the coordinates (1,1) in converted files, in contrast to the .map files, where it is usually (0,0).**
 
 _Requires Python 3.6 or above_
 
@@ -17,9 +19,9 @@ An application for converting instance files using the **mapfconvert** module.
 
 From shell:
 
-_$ python3 map2lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
+_$ python map2lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
 
-| **Short**^ | **Long**   | **Parameter type** | **Description**                         |
+| **Short**  | **Long**   | **Parameter type** | **Description**                         |
 | :--------- | :--------- | :----------------- | :-------------------------------------- |
 | -h         | --help     | None               | display help message and exit           |
 | -i         | --input    | path (String)      | read from given file                    |
@@ -52,4 +54,5 @@ Verbosity is always 0 when printing the output to stdout or when using the _quie
 ### To-do list
 
 * Exit program automatically without crashing if pipe is broken
+* Make certain variables configurable through external config file
 * Add _compress_ option to reduce the size of output files
