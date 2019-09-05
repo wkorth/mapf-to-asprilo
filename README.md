@@ -26,6 +26,7 @@ _$ python map2lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
 | -h         | --help     | None               | display help message and exit           |
 | -i         | --input    | path (String)      | read from given file                    |
 | -o         | --output   | path (String)      | write to file (create it, if necessary) |
+| -c         | --config   | path (String)      | use YAML config file                    |
 | -nh        | --noheader | boolean            | omit the header of the output           |
 | -v         | --verbose  | int {0,1,2}        | set verbosity (when writing to file)    |
 | -q         | --quiet    | None               | set verbosity to 0                      |
@@ -54,5 +55,4 @@ Verbosity is always 0 when printing the output to stdout or when using the _quie
 ### To-do list
 
 * Exit program automatically without crashing if pipe is broken
-* Make certain variables configurable through external config file
-* Add _compress_ option to reduce the size of output files
+* Additional module for converting .scen files

@@ -3,6 +3,8 @@ A module containing functions and classes to convert a mapf instance
 from movingai's .map format file to clingo's .lp format.
 """
 
+import logging
+
 
 class TermConverter:
     """
@@ -11,12 +13,13 @@ class TermConverter:
     all statements in a nested generator.
     """
 
-    def __init__(self, term_dict, template):
+    def __init__(self, term_dict, ignore, template):
         """
         Initializes a TermConverter with the given attributes.
         """
 
         self.terms = term_dict
+        self.ignore = ignore
         self.template = template
         self.termvalues = {term: [] for tup in self.terms.values()
                            for term in tup}
@@ -38,8 +41,9 @@ class TermConverter:
         if char in self.terms:
             for term in self.terms[char]:
                 self.termvalues[term].append((x, y))
-
-    # TODO: def compress(self):
+        elif char is not "\n" and char not in self.ignore:
+            logging.warning(
+                f"Found unhandled character '{char}' at ({x},{y})!")
 
     def term_counts(self):
         """
@@ -89,7 +93,7 @@ def generate_header(*args):
     return header
 
 
-def convert_file(source, target, term_dict, template, *, add_header=False):
+def convert_file(source, target, term_dict, ignore, template, *, add_header=False):
     """
     Takes a file-like object and converts characters in the provided dictionary
     to clingo literals following a template, one line at a time.
@@ -104,7 +108,7 @@ def convert_file(source, target, term_dict, template, *, add_header=False):
     """
 
     orig_header = read_map_params(source)
-    converter = TermConverter(term_dict, template)
+    converter = TermConverter(term_dict, ignore, template)
 
     y_coord = 0
     for line in source:
