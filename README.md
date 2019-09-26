@@ -9,7 +9,7 @@ _Requires Python 3.6 or above_
 
 ## mapfconvert.py
 
-A module containing functions and classes to convert a .map file to .lp.
+A module containing functions and classes to convert a .map or .scen file to .lp.
 
 ## map2lp.py
 
@@ -52,7 +52,14 @@ Depending on its verbosity value, that message contains:
 
 Verbosity is always 0 when printing the output to stdout or when using the _quiet_-option.
 
-### To-do list
+## scen2lp.py
+
+An application for converting scenario files using the **mapfconvert** module.
+
+### Usage
+
+Equivalent to the usage of **map2lp**.
+
+## To-do list
 
 * Exit program automatically without crashing if pipe is broken
-* Additional module for converting .scen files
