@@ -65,6 +65,58 @@ class TermConverter:
                 for term in self.termvalues)
 
 
+class ScenarioConverter:
+
+    def __init__(self, param_dict):
+        """
+        Initializes a ScenarioConverter with the given dictionary.
+        """
+
+        self.param_dict = param_dict
+        self.parameter_amount = len(self.param_dict)
+        self.param_values = {param: [] for param in self.param_dict}
+        self.scenario_amount = 0
+
+    def reset_values(self):
+        """
+        Deletes all saved parameter values.
+        """
+
+        for key in self.param_values:
+            self.param_values[key].clear()
+        self.scenario_amount = 0
+
+    def add_scenario(self, line):
+        """
+        Reads a line containing a scenario and adds read parameters to the dictionary.
+        """
+
+        line = line.split()
+        if len(line) != self.parameter_amount:
+            logging.warning(
+                f"""Omitting scenario with {len(line)} parameters 
+                            (expected {self.parameter_amount})!""")
+        else:
+            # Does not explicitly enforce correct order of keys
+            for key in self.param_values:
+                self.param_values[key].append(line.pop(0))
+            self.scenario_amount += 1
+
+    def statements(self, *, maximum=0):
+        """
+        Returns a list of generators, each corresponding to one parameter,
+        up to the requested amount of scenarios.
+        """
+
+        # Set maximum to list length if invalid or standard value
+        if maximum < 1 or maximum > self.scenario_amount:
+            maximum = self.scenario_amount
+
+        return ((self.param_dict[param].format(self.param_values[param][i], index=i+1)
+                 for i in range(maximum) if self.param_dict[param] is not None)
+                 for param in self.param_values)
+
+
 def read_map_params(map_file):
     """
     Reads the header of a .map file (until the "map" line) and returns the
@@ -76,6 +128,20 @@ def read_map_params(map_file):
         if line.strip() == "map":
             break
         params.append(tuple(line[:-1].rsplit(" ", 1)))
+    return params
+
+
+def read_scen_params(scen_file):
+    """
+    Reads the header of a .scen file (until and including the "version" line) and returns the
+    parameters as tuples in a list.
+    """
+
+    params = []
+    for line in scen_file:
+        params.append(tuple(line[:-1].rsplit(" ", 1)))
+        if params[-1][0].lower() == "version":
+            break
     return params
 
 
@@ -93,10 +159,10 @@ def generate_header(*args):
     return header
 
 
-def convert_file(source, target, term_dict, ignore, template, *, add_header=False):
+def convert_map(source, target, term_dict, ignore, template, *, add_header=False):
     """
     Takes a file-like object and converts characters in the provided dictionary
-    to clingo literals following a template, one line at a time.
+    to clingo literals following a template.
     Writes to specified target file.
 
     Arguments:
@@ -118,6 +184,33 @@ def convert_file(source, target, term_dict, ignore, template, *, add_header=Fals
 
     if add_header:
         target.write(generate_header(orig_header, converter.term_counts()))
+
+    for generator in converter.statements():
+        for statement in generator:
+            target.write(statement)
+
+
+def convert_scen(source, target, param_dict, *, add_header=False):
+    """
+    Takes a file-like object following movingai's .scen-format and converts
+    characters to clingo literals following the provided dictionary.
+    Writes to specified target file.
+
+    Arguments:
+    source - file-like object to read from
+    target - file like object to write to
+    param_dict - dictionary of dictionaries (<parameter>: <template>)
+    add_header - whether to prepend a header to the output
+    """
+
+    orig_header = read_scen_params(source)
+    converter = ScenarioConverter(param_dict)
+
+    for line in source:
+        converter.add_scenario(line)
+
+    if add_header:
+        target.write(generate_header(orig_header))
 
     for generator in converter.statements():
         for statement in generator:

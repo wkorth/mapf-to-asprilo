@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 An application for converting instance files from movingai's .map format file
 to clingo's .lp format. Uses stdin and stdout by default.
@@ -102,7 +104,7 @@ def main(args):
                 print(f"Converting {source.name}...")
             if args.verbose == 2:
                 print(f"Converting {source.name} to {target.name}...")
-            mapfconvert.convert_file(
+            mapfconvert.convert_map(
                 source, target, term_dict, ignore, template,
                 add_header=not args.noheader)
 

@@ -1,6 +1,7 @@
-# Configuration preset for map2lp.py
+# Configuration preset for map2lp.py and scen2lp.py
 # Results in a "binary" map with a node on exactly every tile without movement restrictions
-# and no other literals.
+# and no other literals,
+# and scenarios comprising <parameter>(<value>,<index>) - statements.
 
 # Term Dictionary:
 "term_dict":
@@ -19,3 +20,24 @@
 
 # Statement template:
 "statement_template": "init(object({},{}),value(at,({},{}))).\n"
+
+# Scenario templates:
+"param_dict":
+
+  "bucket": "bucket({},{index}).\n"
+
+  "map": "map(\"{}\",{index}).\n"
+
+  "map_width": "map_width({},{index}).\n"
+
+  "map_height": "map_height({},{index}).\n"
+
+  "start_x": "start_x({},{index}).\n"
+
+  "start_y": "start_y({},{index}).\n"
+
+  "goal_x": "goal_x({},{index}).\n"
+
+  "goal_y": "goal_y({},{index}).\n"
+
+  "optimal_length": ~
