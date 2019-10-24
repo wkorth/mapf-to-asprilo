@@ -24,7 +24,7 @@
 # Scenario templates:
 "param_dict":
 
-  "bucket": "bucket({},{index}).\n"
+  "bucket": ~
 
   "map": "map(\"{}\",{index}).\n"
 

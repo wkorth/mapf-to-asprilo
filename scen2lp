@@ -20,7 +20,7 @@ def get_config(cfg):
 
     if cfg is None:
         param_dict = {
-            "bucket": "bucket({},{index}).\n",
+            "bucket": None,
             "map": 'map("{}",{index}).\n',
             "map_width": "map_width({},{index}).\n",
             "map_height": "map_height({},{index}).\n",
