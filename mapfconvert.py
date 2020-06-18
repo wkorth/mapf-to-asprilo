@@ -54,12 +54,9 @@ class TermConverter:
 
     def statements(self):
         """
-        Returns a list of generators, each corresponding to one term.
+        Returns a generator of generators, each corresponding to one term.
         """
 
-        # This works as a generator for generators,
-        # but behaves weirdly as a list of generators.
-        # Why?
         return ((self.template.format(term, item[0], item[1][0], item[1][1])
                  for item in enumerate(sorted(self.termvalues[term]), 1))
                 for term in self.termvalues)

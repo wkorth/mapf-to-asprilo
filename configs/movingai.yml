@@ -1,0 +1,26 @@
+# Configuration preset for map2lp.py
+# Results in a map brightly colored for showing in the asprilo visualizer, albeit with nonsensical meaning.
+
+# Term Dictionary:
+"term_dict":
+  ".":
+    - "node"
+  "G":
+    - "node"
+  "T":
+    - "node"
+    - "tree"
+  "W":
+    - "node"
+    - "water"
+  "S":
+    - "node"
+    - "swamp"
+
+# Ignore list:
+"ignore_list":
+    -"@"
+    -"O"
+
+# Statement template:
+"statement_template": "init(object({},{}),value(at,({},{}))).\n"
