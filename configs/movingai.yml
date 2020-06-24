@@ -1,7 +1,9 @@
 # Configuration preset for map2lp.py
 # Results in a map brightly colored for showing in the asprilo visualizer, albeit with nonsensical meaning.
 
-# Term Dictionary:
+# Dictionary to translate symbols found in original map.
+# Format: <character>: <List of object predicates to generate>
+# Example: "T": ["node", "tree"] translates every "T" as two separate init-statements one for a node and one for a tree.
 "term_dict":
   ".":
     - "node"
@@ -17,10 +19,10 @@
     - "node"
     - "swamp"
 
-# Ignore list:
+# List of ignored symbols in original file when converting:
 "ignore_list":
     -"@"
     -"O"
 
-# Statement template:
+# Template for logic statements in output file:
 "statement_template": "init(object({},{}),value(at,({},{}))).\n"

@@ -3,14 +3,16 @@
 # and no other literals,
 # and scenarios comprising <parameter>(<value>,<index>) - statements.
 
-# Term Dictionary:
+# Dictionary to translate symbols found in original map.
+# Format: <character>: <List of object predicates to generate>
+# Example: "T": ["node", "tree"] translates every "T" as two separate init-statements one for a node and one for a tree.
 "term_dict":
   ".":
     - "node"
   "G":
     - "node"
 
-# Ignore list:
+# List of ignored symbols in original file when converting:
 "ignore_list":
   - "@"
   - "O"
@@ -18,10 +20,10 @@
   - "T"
   - "S"
 
-# Statement template:
+# Template for logic statements in output file:
 "statement_template": "init(object({},{}),value(at,({},{}))).\n"
 
-# Scenario templates:
+# Dictionary to translate parameters in .scen-files to statements.
 "param_dict":
 
   "bucket": ~
