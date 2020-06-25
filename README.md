@@ -1,4 +1,4 @@
-# asprilo-mapfConverter
+# mapf-to-asprilo
 
 Provides a Python module for converting [movingai's .map files](https://www.movingai.com/benchmarks/index.html "www.movingai.com/benchmarks") to clingo compatible statements
 as well as a small application to use it from the shell.
@@ -11,7 +11,7 @@ _Requires Python 3.6 or above_
 
 A module containing functions and classes to convert a .map or .scen file to .lp.
 
-## map2lp.py
+## map-to-lp.py
 
 An application for converting instance files using the **mapfconvert** module.
 
@@ -19,7 +19,7 @@ An application for converting instance files using the **mapfconvert** module.
 
 From shell:
 
-_$ python map2lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
+_$ python map-to-lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
 
 | **Short**  | **Long**   | **Parameter type** | **Description**                         |
 | :--------- | :--------- | :----------------- | :-------------------------------------- |
@@ -52,13 +52,13 @@ Depending on its verbosity value, that message contains:
 
 Verbosity is always 0 when printing the output to stdout or when using the _quiet_-option.
 
-## scen2lp.py
+## scen-to-lp.py
 
 An application for converting scenario files using the **mapfconvert** module.
 
 ### Usage
 
-Equivalent to the usage of **map2lp**.
+Equivalent to the usage of **map-to-lp**.
 
 ## To-do list
 
