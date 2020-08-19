@@ -19,7 +19,7 @@ An application for converting instance files using the **mapfconvert** module.
 
 From shell:
 
-_$ python map-to-lp.py \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
+map_to_lp \[-h] [-i IN] [-o out] \[-nh] [-v {0,1,2} | -q]_
 
 | **Short**  | **Long**   | **Parameter type** | **Description**                         |
 | :--------- | :--------- | :----------------- | :-------------------------------------- |
