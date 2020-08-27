@@ -5,7 +5,7 @@ with open("README.md", "r") as ld:
 
 setuptools.setup(
     name="asprilo-mapfconverter",
-    version="0.1.2",
+    version="0.1.3",
     author="Wassily Korth",
     author_email="wkorth@uni-potsdam.de",
     description="A converter from movingai's formats to asprilo's",
@@ -14,8 +14,8 @@ setuptools.setup(
     url="https://github.com/wkorth/mapf-to-asprilo",
     packages=setuptools.find_packages(),
     entry_points={'console_scripts': [
-                           'map-to-lp = scripts.map_to_lp:main',
-                           'scen-to-lp = scripts.scen_to_lp:main']},
+                           'map-to-lp = mapfconverter.map_to_lp:main',
+                           'scen-to-lp = mapfconverter.scen_to_lp:main']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

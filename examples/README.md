@@ -5,10 +5,14 @@ both pre- and post-conversion.
 
 In this example, icecrown was converted from .map to .lp using
 
-_$ python map2lp.py -i icecrown.map -o icecrown.lp_
+```bash
+map-to-lp -i icecrown.map -o icecrown.lp
+```
 
 Alternatively, the same result could be reached by using
 
-_$ cat icecrown.map | python map2lp.py > icecrown.lp_
+```bash
+cat icecrown.map | map-to-lp > icecrown.lp_
+```
 
 or a mix between the two.
