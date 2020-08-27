@@ -21,13 +21,13 @@ def get_config(cfg):
     if cfg is None:
         param_dict = {
             "bucket": None,
-            "map": 'map("{}",{index}).\n',
-            "map_width": "map_width({},{index}).\n",
-            "map_height": "map_height({},{index}).\n",
-            "start_x": "start_x({},{index}).\n",
-            "start_y": "start_y({},{index}).\n",
-            "goal_x": "goal_x({},{index}).\n",
-            "goal_y": "goal_y({},{index}).\n",
+            "map": 'map("{}",{}).\n',
+            "map_width": "map_width({},{}).\n",
+            "map_height": "map_height({},{}).\n",
+            "start_x": "start_x({},{}).\n",
+            "start_y": "start_y({},{}).\n",
+            "goal_x": "goal_x({},{}).\n",
+            "goal_y": "goal_y({},{}).\n",
             "optimal_length": None
         }
 
