@@ -109,7 +109,7 @@ class ScenarioConverter:
         if maximum < 1 or maximum > self.scenario_amount:
             maximum = self.scenario_amount
 
-        return ((self.param_dict[param].format(self.param_values[param][i], index=i+1)
+        return ((self.param_dict[param].format(self.param_values[param][i], i+1)
                  for i in range(maximum) if self.param_dict[param] is not None)
                  for param in self.param_values)
 

@@ -26,3 +26,24 @@
 
 # Template for logic statements in output file:
 "statement_template": "init(object({},{}),value(at,({},{}))).\n"
+
+# Dictionary to translate parameters in .scen-files to statements.
+"param_dict":
+
+  "bucket": ~
+
+  "map": "map(\"{}\",{}).\n"
+
+  "map_width": "map_width({},{}).\n"
+
+  "map_height": "map_height({},{}).\n"
+
+  "start_x": "start_x({},{}).\n"
+
+  "start_y": "start_y({},{}).\n"
+
+  "goal_x": "goal_x({},{}).\n"
+
+  "goal_y": "goal_y({},{}).\n"
+
+  "optimal_length": ~

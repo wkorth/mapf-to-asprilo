@@ -9,6 +9,10 @@ import argparse
 import logging
 import sys
 import yaml
+import pathlib
+
+# Add mapfconvert module path to sys.path
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))
 
 import mapfconvert
 

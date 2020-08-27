@@ -1,4 +1,4 @@
-# Configuration preset for map2lp.py and scen2lp.py
+# Configuration preset for map-to-asprilo and scen-to-asprilo
 # Results in a "binary" map with a node on exactly every tile without movement restrictions
 # and no other literals,
 # and scenarios comprising <parameter>(<value>,<index>) - statements.
@@ -28,18 +28,18 @@
 
   "bucket": ~
 
-  "map": "map(\"{}\",{index}).\n"
+  "map": "map(\"{}\",{}).\n"
 
-  "map_width": "map_width({},{index}).\n"
+  "map_width": "map_width({},{}).\n"
 
-  "map_height": "map_height({},{index}).\n"
+  "map_height": "map_height({},{}).\n"
 
-  "start_x": "start_x({},{index}).\n"
+  "start_x": "start_x({},{}).\n"
 
-  "start_y": "start_y({},{index}).\n"
+  "start_y": "start_y({},{}).\n"
 
-  "goal_x": "goal_x({},{index}).\n"
+  "goal_x": "goal_x({},{}).\n"
 
-  "goal_y": "goal_y({},{index}).\n"
+  "goal_y": "goal_y({},{}).\n"
 
   "optimal_length": ~
