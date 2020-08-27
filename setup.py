@@ -5,7 +5,7 @@ with open("README.md", "r") as ld:
 
 setuptools.setup(
     name="asprilo-mapfconverter",
-    version="0.1.5",
+    version="0.1.6",
     author="Wassily Korth",
     author_email="wkorth@uni-potsdam.de",
     description="A converter from movingai's formats to asprilo's",

@@ -10,7 +10,8 @@ import logging
 import sys
 import yaml
 import pathlib
-import mapfconvert
+
+from . import mapfconvert
 
 
 def get_config(cfg):
@@ -82,7 +83,7 @@ def get_args():
     return parser.parse_args()
 
 
-def main(args):
+def main():
     """
     Converts specified files from .scen to .lp.
 
@@ -90,6 +91,9 @@ def main(args):
     args - an argparse.Namespace object
     param_dict - dictionary containing scenario parameters and their statements
     """
+
+    # Get arguments
+    args = get_args()
 
     # Supress informational output if unwanted or interfering with result
     if args.quiet or args.output == sys.stdout:
@@ -109,4 +113,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(get_args())
+    sys.exit(main())
